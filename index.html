@@ -19,9 +19,126 @@
             <li class="list-item">Banana</li>
         </ul>
     </div>
-
     <img src="#" alt="This is an image. Page loading failed!">
+    <br><br>
+    <hr>
 
+    <!-- Count -->
+    <p>Counter : <span id="count">0</span></p>
+    <button id="count-btn">Click to count</button>
+
+    <br><br>
+    <hr>
+
+
+    <section id="card-container">
+
+        <div class="product-card">
+            <img src="./assets/watch.webp" alt="">
+            <h3 class="category-name">Electronics</h3>
+            <h4 class="product-name">Smart Watch</h4>
+            <div class="product-footer">
+                <span class="product-price">2500</span>
+                <button class="wishlist-btn-card">❤️</button>
+            </div>
+            <button class="add-to-cart-btn">Add to cart</button>
+        </div>
+
+
+        <div class="product-card">
+            <img src="./assets/headphone.jpeg" alt="">
+            <h3 class="category-name">Electronics</h3>
+            <h4 class="product-name">Headphone</h4>
+            <div class="product-footer">
+                <span class="product-price">2000</span>
+                <button class="wishlist-btn-card">❤️</button>
+            </div>
+            <button class="add-to-cart-btn">Add to cart</button>
+        </div>
+
+
+        <div class="product-card">
+            <img src="./assets/keyboard.jpg" alt="">
+            <h3 class="category-name">Electronics</h3>
+            <h4 class="product-name">keyboard</h4>
+            <div class="product-footer">
+                <span class="product-price">3000</span>
+                <button class="wishlist-btn-card">❤️</button>
+            </div>
+            <button class="add-to-cart-btn">Add to cart</button>
+        </div>
+    </section>
+
+    <p class="wish">❤️ <span id="wishCount">0</span></p>
+
+
+
+
+
+
+
+    <script>
+        const wishlistBtn = document.querySelectorAll(".wishlist-btn-card");
+
+        let coount = 0;
+        wishlistBtn.forEach(btn => {
+            btn.addEventListener('click', function (event) {
+                let wishCount = document.getElementById("wishCount");
+                coount++;
+                wishCount.innerText = coount;
+
+
+            })
+        })
+
+        /**** 
+         * কার্টে Button ক্লিক করলে কার্ডের প্রডাক্টের নাম, দাম, ক্যাটেগরি বের করে নিয়ে আসতে হবে।
+         * অন্য একটি জায়গায় রাখার জন্য  let cart = []; ধরে নিতে হবে ।
+         * নাম, দাম, ক্যাটেগরির একটা অবজেক্ট বানিয়ে নিতে হবে ।
+         * একটা ফাংশনে এই অবজেক্ট কে product প্যারামিটার হিসেবে পাঠাতে হবে ।
+         * addToCart(product);
+         * 
+        ****/
+
+        const buttons = document.querySelectorAll(".add-to-cart-btn");
+
+        let cart = []
+        buttons.forEach(btn => {
+            btn.addEventListener("click", function (e) {
+                const card = e.target.closest(".product-card");
+                console.log(card)
+
+                const productName = card.querySelector("product-name");
+                const price = parseInt(card.querySelector("product-price"));
+                const category = card.querySelector(".category-name");
+
+                const product = {
+                    name: productName,
+                    productPrice: price,
+                    productCategory: category,
+                    quantity: 1,
+                }
+
+                addToCart(product)
+            });
+        });
+
+
+        function addToCart(product) {
+            // array access
+            const existingItem = cart.find(item => item.name == product.productName);
+
+            if (existingItem) {
+                existingItem.quantity++;
+            }
+            else {
+                cart.push(product)
+            }
+        }
+
+
+
+    </script>
 
     <script src="./script/01_script.js"></script>
 </body>

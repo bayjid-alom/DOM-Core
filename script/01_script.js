@@ -12,10 +12,18 @@ console.log(listItems)
 // listItems[0].style.color = "green";
 // একটা একটা Item পেতে ফর লুপ চালাতে হবে ।
 listItems.forEach(item => {
-    console.log(item);
-    item.style.color = "blue";
+    // console.log(item);
+    item.style.color = "red";
     item.style.fontSize = "20px";
+    item.style.backgroundColor = "lightblue";
+    item.style.marginBottom = "12px";
 })
+
+
+// for (const li of listItems) {
+//     console.log(li)
+// }
+
 
 
 
@@ -34,6 +42,23 @@ console.log(image)
 
 image.setAttribute('alt', "Updated image failed!")
 image.setAttribute('class', '#image')
+
+
+
+
+
+
+// ===================================================
+const countBtn = document.getElementById("count-btn")
+let count = 0;
+countBtn.addEventListener("click", function () {
+    const counter = document.getElementById("count")
+    count++;
+    counter.innerText = count;
+})
+
+
+
 
 
 

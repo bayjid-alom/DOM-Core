@@ -80,3 +80,6 @@ listItems.forEach(item => {
     item.style.fontSize = "20px";
 })
 ```
+
+
+- Nodelist পেলে forEach(item =>{}) Use করা যায় ।
