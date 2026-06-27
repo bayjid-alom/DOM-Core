@@ -61,5 +61,109 @@ countBtn.addEventListener("click", function () {
 
 
 
+// ===========================================================================
+
+
+
+
+
+
+
+const wishlistBtn = document.querySelectorAll(".wishlist-btn-card");
+
+let coount = 0;
+wishlistBtn.forEach(btn => {
+    btn.addEventListener('click', function (event) {
+        let wishCount = document.getElementById("wishCount");
+        coount++;
+        wishCount.innerText = coount;
+    })
+})
+
+/**** 
+ * কার্টে Button ক্লিক করলে কার্ডের প্রডাক্টের নাম, দাম, ক্যাটেগরি বের করে নিয়ে আসতে হবে।
+ * অন্য একটি জায়গায় রাখার জন্য  let cart = []; ধরে নিতে হবে ।
+ * নাম, দাম, ক্যাটেগরির একটা অবজেক্ট বানিয়ে নিতে হবে ।
+ * একটা ফাংশনে এই অবজেক্ট কে product প্যারামিটার হিসেবে পাঠাতে হবে ।
+ * addToCart(product);
+ * 
+****/
+
+const buttons = document.querySelectorAll(".add-to-cart-btn");
+
+let cart = []
+buttons.forEach(btn => {
+    btn.addEventListener("click", function (e) {
+        const card = e.target.closest(".product-card");
+
+        const productName = card.querySelector(".product-name").textContent;
+        const price = parseInt(card.querySelector(".product-price").textContent);
+        const category = card.querySelector(".category-name").textContent;
+
+        const product = {
+            name: productName,
+            productPrice: price,
+            productCategory: category,
+            quantity: 1,
+        }
+
+        addToCart(product)
+    });
+});
+
+
+function addToCart(product) {
+    const existingItem = cart.find(item => item.name == product.name);
+    if (existingItem) {
+        existingItem.quantity++;
+    }
+    else {
+        cart.push(product)
+    }
+    console.log(cart)
+
+    updateCart()
+}
+
+
+
+// To show 
+const cartItemsDiv = document.getElementById("cartItems");
+const cartCount = document.getElementById("cartCount");
+const totalPrice = document.getElementById("totalPrice")
+
+function updateCart() {
+    cartItemsDiv.innerHTML = "";
+    let total = 0;
+    let totalItems = 0;
+
+    cart.forEach(item => {
+        total = total + (item.productPrice * item.quantity);
+        totalItems = totalItems + item.quantity;
+
+        const div = document.createElement("div");
+
+        div.innerHTML = `
+                ${item.name} (x ${item.quantity}) - ${item.productPrice * item.quantity}
+
+                <button>Remove</button>
+
+                `;
+
+        cartItemsDiv.appendChild(div)
+    })
+
+
+    cartCount.innerText = totalItems;
+    totalPrice.innerText = total;
+}
+
+
+
+
+
+
+
+
 
 
