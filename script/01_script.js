@@ -1,13 +1,12 @@
-console.log("01 Script Connected.")
+// console.log("01 Script Connected.")
 
 
 const mainTitle = document.getElementById("main-title");
-console.log(mainTitle.innerText)
 mainTitle.innerText = "Hello JavaScript...!!"
 
 
 const listItems = document.querySelectorAll(".list-item");
-console.log(listItems)
+
 // NodeList(4) [li.list-item, li.list-item, li.list-item, li.list-item]
 // listItems[0].style.color = "green";
 // একটা একটা Item পেতে ফর লুপ চালাতে হবে ।
@@ -38,7 +37,7 @@ console.log(mainDiv.children[0].childNodes)
 
 // Attributes
 const image = document.querySelector("img");  // (img tag)
-console.log(image)
+
 
 image.setAttribute('alt', "Updated image failed!")
 image.setAttribute('class', '#image')
