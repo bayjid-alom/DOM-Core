@@ -1,6 +1,5 @@
 // console.log("01 Script Connected.")
 
-
 const mainTitle = document.getElementById("main-title");
 mainTitle.innerText = "Hello JavaScript...!!"
 
@@ -25,8 +24,6 @@ listItems.forEach(item => {
 
 
 
-
-
 const mainDiv = document.getElementById("main-div");
 
 console.log(mainDiv.children[0].children)
@@ -38,16 +35,12 @@ console.log(mainDiv.children[0].childNodes)
 // Attributes
 const image = document.querySelector("img");  // (img tag)
 
-
 image.setAttribute('alt', "Updated image failed!")
 image.setAttribute('class', '#image')
 
 
 
 
-
-
-// ===================================================
 const countBtn = document.getElementById("count-btn")
 let count = 0;
 countBtn.addEventListener("click", function () {
@@ -60,9 +53,10 @@ countBtn.addEventListener("click", function () {
 
 
 
-
-// ===========================================================================
-
+/***** Steps :
+ *
+ 
+ *****/
 
 
 
@@ -157,9 +151,6 @@ function updateCart() {
     cartCount.innerText = totalItems;
     totalPrice.innerText = total;
 }
-
-
-
 
 
 

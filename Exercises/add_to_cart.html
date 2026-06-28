@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+
+
+</head>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+        background: #f4f7fb;
+        padding: 40px 20px;
+    }
+
+    /* ==========================
+   Layout
+========================== */
+
+    body {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 35px;
+        align-items: start;
+    }
+
+    @media(max-width:900px) {
+        body {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    /* ==========================
+   Product Section
+========================== */
+
+    #card-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 25px;
+    }
+
+    .card {
+        background: #fff;
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, .08);
+        transition: .3s;
+        padding: 20px;
+    }
+
+    .card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, .12);
+    }
+
+    .card img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        border-radius: 15px;
+    }
+
+    .category {
+        display: inline-block;
+        margin-top: 18px;
+        background: #eef4ff;
+        color: #2563eb;
+        padding: 6px 14px;
+        border-radius: 30px;
+        font-size: 13px;
+    }
+
+    .name {
+        margin-top: 15px;
+        font-size: 22px;
+        color: #222;
+    }
+
+    .price {
+        margin: 15px 0;
+        font-size: 28px;
+        font-weight: 700;
+        color: #16a34a;
+    }
+
+    .price::before {
+        content: "৳ ";
+    }
+
+    .add-to-card-btn {
+        width: 100%;
+        padding: 14px;
+        border: none;
+        border-radius: 12px;
+        background: #2563eb;
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+        transition: .3s;
+    }
+
+    .add-to-card-btn:hover {
+        background: #1d4ed8;
+    }
+
+    /* ==========================
+   Cart
+========================== */
+
+    #store-section {
+        background: #fff;
+        padding: 25px;
+        border-radius: 18px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, .08);
+        min-height: 300px;
+    }
+
+    #store-section div {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 14px 0;
+        border-bottom: 1px solid #ececec;
+        font-size: 15px;
+    }
+
+    #store-section button {
+        background: #ef4444;
+        color: #fff;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+
+    #store-section button:hover {
+        background: #dc2626;
+    }
+
+    /* ==========================
+   Summary
+========================== */
+
+    .to-show {
+        background: #fff;
+        margin-top: 25px;
+        border-radius: 18px;
+        padding: 25px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, .08);
+    }
+
+    .count\\&total h3 {
+        display: flex;
+        justify-content: space-between;
+        margin: 18px 0;
+        font-size: 20px;
+    }
+
+    #totalCount,
+    #total-cost {
+        color: #2563eb;
+        font-weight: 700;
+    }
+
+    /* ==========================
+   Scrollbar
+========================== */
+
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #e5e7eb;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #2563eb;
+        border-radius: 20px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #1d4ed8;
+    }
+</style>
+
+<body>
+
+
+    <section id="card-container">
+        <div class="card">
+            <img src="../assets/watch.webp" alt="">
+            <h4 class="category">Electronics</h4>
+            <h3 class="name">Smart watch</h3>
+            <p class="price">2300</p>
+            <button class="add-to-card-btn">Add to Cart </button>
+        </div>
+
+        <div class="card">
+            <img src="../assets/honor.webp" alt="">
+            <h4 class="category">Electronics</h4>
+            <h3 class="name">SmartPhone</h3>
+            <p class="price">30000</p>
+            <button class="add-to-card-btn">Add to Cart </button>
+        </div>
+    </section>
+
+
+    <!-- Item will add here by dynamically when click add to card button -->
+    <section id="store-section">
+        <!--  -->
+    </section>
+
+
+    <section class="to-show">
+        <div class="count&total">
+            <h3>Count : <span id="totalCount">0</span></h3>
+            <h3>Total Cost : <span id="total-cost">0</span></h3>
+        </div>
+    </section>
+
+
+
+    <script>
+
+        const addToCartBtns = document.querySelectorAll(".add-to-card-btn");
+
+        let cart = [];
+        addToCartBtns.forEach(btn => {
+            btn.addEventListener("click", function (event) {
+                const card = event.target.closest(".card");
+
+                const productName = card.querySelector(".name").textContent;
+                const productPrice = parseInt(card.querySelector(".price").textContent);
+                const productCategory = card.querySelector(".category").textContent;
+
+                const product = {
+                    name: productName,
+                    productPrice: productPrice,
+                    productCategory: productCategory,
+                    quantity: 1,
+                }
+
+                addToCart(product)
+            })
+        })
+
+
+
+        function addToCart(product) {
+            const existingItem = cart.find(item => item.name === product.name);
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push(product)
+            }
+            console.log(cart)
+
+            updateCart()
+        }
+
+
+        const storeSection = document.getElementById("store-section");
+        const totalCount = document.getElementById("totalCount");
+        const totalCost = document.getElementById("total-cost")
+
+        function updateCart() {
+            storeSection.innerHTML = "";
+            let total = 0;
+            let totalItems = 0;
+
+            cart.forEach(item => {
+                total = total + (item.productPrice * item.quantity);
+                totalItems = totalItems + item.quantity;
+
+                const div = document.createElement("div")
+                div.innerHTML = `
+                ${item.name} x ${item.quantity} - ${item.productPrice * item.quantity}
+                <button>Remove </Remove>
+                `;
+
+                storeSection.appendChild(div)
+
+            })
+
+            totalCount.innerText = totalItems;
+            totalCost.innerText = total;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        let tryCount = 0;
+        const countNowBtn = document.getElementById("count-now");
+        countNowBtn.addEventListener("click", function () {
+            const tryCountElem = document.getElementById("try-count")
+            tryCount++;
+            tryCountElem.innerText = tryCount;
+        })
+
+    </script>
+</body>
+
+</html>
