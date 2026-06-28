@@ -1,16 +1,14 @@
-# 🚀 Milestone 04 — DOM Core Journey
+## 🚀 M04 - DOM (Document Object Model)
 
 <div align="center">
-
-### 📚 Conceptual Session 01 (CS1)
-
-*Mastering DOM Traversing, Node Relationships, Element Selection, Dynamic Content Creation, Styling, Attributes, and Interactive Web Page Manipulation.*
 
 ![JavaScript](https://img.shields.io/badge/JavaScript-DOM_Core-yellow?style=for-the-badge\&logo=javascript)
 ![Session](https://img.shields.io/badge/CS1-DOM_Basics-blue?style=for-the-badge)
 ![Milestone](https://img.shields.io/badge/Milestone-04-success?style=for-the-badge)
 
 </div>
+
+[Visit : DOM Core 🔥](https://bayjid-alom.github.io/DOM-Core/)
 
 ---
 
